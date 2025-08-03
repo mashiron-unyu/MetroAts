@@ -27,7 +27,7 @@ namespace TobuSignal {
         public static bool ATSEnable = false;
 
         //panel -> ATS
-        public static bool ATS_TobuAts, ATS_ATSEmergencyBrake, ATS_EmergencyOperation, ATS_Confirm, ATS_60, ATS_15, ATS_StopAnnounce;
+        public static bool ATS_TobuAts, ATS_ATSEmergencyBrake, ATS_EmergencyOperation, ATS_Confirm, ATS_60, ATS_35, ATS_15, ATS_StopAnnounce;
         public static void Tick(VehicleState state) {
             if (ATSEnable) {
                 ATS_TobuAts = true;
@@ -61,6 +61,7 @@ namespace TobuSignal {
                     }
 
                     ATS_60 = ATSPattern.TargetSpeed == 60;
+                    ATS_35 = ATSPattern.TargetSpeed == 35;//DE10用
                     ATS_15 = ATSPattern.TargetSpeed == 15;
 
                     ATS_ATSEmergencyBrake = EBType > 0;
