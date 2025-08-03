@@ -39,6 +39,7 @@ namespace TobuSignal {
             ATS_Confirm = false;
             ATS_StopAnnounce = false;
             ATS_60 = false;
+            ATS_35 = false;//DE10用
             ATS_15 = false;
 
             ATSEnable = false;
@@ -62,6 +63,7 @@ namespace TobuSignal {
             ATS_StopAnnounce = false;
             ATS_Confirm = false;
             ATS_60 = false;
+            ATS_35 = false;//DE10用
             ATS_15 = false;
         }
 
@@ -95,9 +97,20 @@ namespace TobuSignal {
                     if (state.Time.TotalMilliseconds - LastBeaconPassTime.TotalMilliseconds < 1000) EBType = EBTypes.CannotReleaseUntilStop;
                     LastBeaconPassTime = state.Time;
                     break;
-                case 5:
-                    if (StopAnnounce == 0) StopAnnounce = 1;
-                    if (StopAnnounce == 1) StopAnnounce = 2;
+/*                case 5:
+                    if (MPPPattern == SpeedPattern.inf)
+                        MPPPattern = new SpeedPattern(60, state.Location + 400);
+                    else if (MPPPattern.TargetSpeed == 60)
+                    {
+                        MPPPattern = new SpeedPattern(15, state.Location - 100);
+                        MPPEndLocation = state.Location + 105;
+                    }
+                    break;*/
+                case 4://次駅停車ランプ
+                    if (StopAnnounce == 0) 
+                        StopAnnounce = 1;
+                    else if (StopAnnounce == 1) 
+                        StopAnnounce = 2;
                     break;
                 case 9:
                     if (MPPPattern == SpeedPattern.inf)
