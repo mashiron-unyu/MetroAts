@@ -50,23 +50,23 @@ namespace MetroSignal {
                         if (WS_ATC.BrakeCommand > 0) BrakeTriggered = true;
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                     }
-                    panel[274] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot ? 1 : 0;
-                    panel[277] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset ? 1 : 0;
+                    panel[31] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot ? 1 : 0;
+                    panel[29] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset ? 1 : 0;
                     if (currentSection.CurrentSignalIndex >= 9 && currentSection.CurrentSignalIndex != 34 && currentSection.CurrentSignalIndex < 49) {
                         if (WS_ATC.ATCEnable) WS_ATC.ResetAll();
                         if (!CS_ATC.ATCEnable && (Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot
                             || Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset)) CS_ATC.Init(state.Time);
-                        sound[256] = ((Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot && currentSection.CurrentSignalIndex >= 38 && currentSection.CurrentSignalIndex <= 48)
+                        sound[0] = ((Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot && currentSection.CurrentSignalIndex >= 38 && currentSection.CurrentSignalIndex <= 48)
                         || Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.ATC) ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                     } else if (currentSection.CurrentSignalIndex >= 50 && currentSection.CurrentSignalIndex <= 54) {
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                         if (!WS_ATC.ATCEnable &&
                             (Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset)) WS_ATC.Init(state.Time);
-                        sound[256] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.WS_ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
+                        sound[0] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.WS_ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                     } else if (Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.InDepot || Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset) {
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                         if (WS_ATC.ATCEnable) WS_ATC.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;
                     }
                 } else {
                     if(!corePlugin.SubPluginEnabled) corePlugin.SubPluginEnabled = true;
@@ -90,26 +90,26 @@ namespace MetroSignal {
                         if (WS_ATC.BrakeCommand > 0) BrakeTriggered = true;
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                     }
-                    if (!CS_ATC.ATCEnable) panel[274] = corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot ? 1 : 0;
-                    panel[277] = (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset || corePlugin.SignalSWPos == MetroAts.SignalSWList.JR) ? 1 : 0;
+                    if (!CS_ATC.ATCEnable) panel[31] = corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot ? 1 : 0;
+                    panel[29] = (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset || corePlugin.SignalSWPos == MetroAts.SignalSWList.JR) ? 1 : 0;
                     if (currentSection.CurrentSignalIndex >= 9 && currentSection.CurrentSignalIndex != 34 && currentSection.CurrentSignalIndex < 49) {
                         if (WS_ATC.ATCEnable) WS_ATC.ResetAll();
                         if (!CS_ATC.ATCEnable && (corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot
                             || corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset
                             || corePlugin.SignalSWPos == MetroAts.SignalSWList.JR))
                             CS_ATC.Init(state.Time);
-                        sound[256] = ((corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot && currentSection.CurrentSignalIndex >= 38 && currentSection.CurrentSignalIndex <= 48)
+                        sound[0] = ((corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot && currentSection.CurrentSignalIndex >= 38 && currentSection.CurrentSignalIndex <= 48)
                         || corePlugin.SignalSWPos == MetroAts.SignalSWList.ATC) ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                     } else if (currentSection.CurrentSignalIndex >= 50 && currentSection.CurrentSignalIndex <= 54) {
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                         if (!WS_ATC.ATCEnable &&
                             (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset
                             || corePlugin.SignalSWPos == MetroAts.SignalSWList.JR)) WS_ATC.Init(state.Time);
-                        sound[256] = corePlugin.SignalSWPos == MetroAts.SignalSWList.WS_ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
+                        sound[0] = corePlugin.SignalSWPos == MetroAts.SignalSWList.WS_ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                     } else if (corePlugin.SignalSWPos == MetroAts.SignalSWList.InDepot || corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset) {
                         if (CS_ATC.ATCEnable) CS_ATC.ResetAll();
                         if (WS_ATC.ATCEnable) WS_ATC.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;
                     }
                 }
                 if (!StandAloneMode) {
@@ -124,9 +124,9 @@ namespace MetroSignal {
                         SignalEnable = false;
                         WS_ATC.ResetAll();
                         CS_ATC.ResetAll();
-                        if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                        panel[274] = 0;
-                        panel[277] = 0;
+                        if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;
+                        panel[31] = 0;
+                        panel[29] = 0;
                     }
                 }
                 if (BrakeTriggered) {
@@ -142,9 +142,9 @@ namespace MetroSignal {
                         SignalEnable = true;
                     AtsHandles.BrakeNotch = vehicleSpec.BrakeNotches + 1;
                     AtsHandles.ReverserPosition = ReverserPosition.N;
-                    if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                    panel[275] = 0;
-                    panel[278] = 0;
+                    if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;
+                    panel[33] = 0;
+                    panel[30] = 0;
                 } else {
                     Keyin = corePlugin.KeyPos == MetroAts.KeyPosList.Metro || corePlugin.KeyPos == MetroAts.KeyPosList.ToyoKosoku;
                     if (!SignalEnable && Keyin &&
@@ -185,9 +185,9 @@ namespace MetroSignal {
                 leverText = (LeverText)BveHacker.MainForm.Assistants.Items.First(item => item is LeverText);
                 leverText.Text = $"キー:{(Keyin ? "入" : "切")} 保安:{SignalSWText}\n{description}";
                 if (isDoorOpen) AtsHandles.ReverserPosition = ReverserPosition.N;
-                sound[270] = (int)Sound_Keyin;
-                sound[271] = (int)Sound_Keyout;
-                sound[272] = (int)Sound_SignalSW;
+                sound[10] = (int)Sound_Keyin;
+                sound[11] = (int)Sound_Keyout;
+                sound[22] = (int)Sound_SignalSW;
 
                 panel[Config.Panel_keyoutput] = Convert.ToInt32(Keyin);
                 panel[Config.Panel_SignalSWoutput] = (int)Config.SignalSWLists[NowSignalSW];
@@ -202,55 +202,55 @@ namespace MetroSignal {
         }
 
         private static void UpdatePanelAndSound(IList<int> panel, IList<int> sound) {
-            sound[273] = (int)Sound_ResetSW;
+            sound[28] = (int)Sound_ResetSW;
 
             //panel
-            panel[287] = Convert.ToInt32(CS_ATC.ATC_01);
-            panel[288] = Convert.ToInt32(CS_ATC.ATC_10);
-            panel[289] = Convert.ToInt32(CS_ATC.ATC_15);
-            panel[290] = Convert.ToInt32(CS_ATC.ATC_20);
-            panel[291] = Convert.ToInt32(CS_ATC.ATC_25);
-            panel[292] = Convert.ToInt32(CS_ATC.ATC_30);
-            panel[293] = Convert.ToInt32(CS_ATC.ATC_35);
-            panel[294] = Convert.ToInt32(CS_ATC.ATC_40);
-            panel[295] = Convert.ToInt32(CS_ATC.ATC_45);
-            panel[296] = Convert.ToInt32(CS_ATC.ATC_50);
-            panel[297] = Convert.ToInt32(CS_ATC.ATC_55);
-            panel[298] = Convert.ToInt32(CS_ATC.ATC_60);
-            panel[299] = Convert.ToInt32(CS_ATC.ATC_65);
-            panel[300] = Convert.ToInt32(CS_ATC.ATC_70);
-            panel[301] = Convert.ToInt32(CS_ATC.ATC_75);
-            panel[302] = Convert.ToInt32(CS_ATC.ATC_80);
-            panel[303] = Convert.ToInt32(CS_ATC.ATC_85);
-            panel[304] = Convert.ToInt32(CS_ATC.ATC_90);
-            panel[305] = Convert.ToInt32(CS_ATC.ATC_95);
-            panel[306] = Convert.ToInt32(CS_ATC.ATC_100);
-            panel[307] = Convert.ToInt32(CS_ATC.ATC_105);
-            panel[308] = Convert.ToInt32(CS_ATC.ATC_110);
+            panel[102] = Convert.ToInt32(CS_ATC.ATC_01);
+            panel[104] = Convert.ToInt32(CS_ATC.ATC_10);
+            panel[105] = Convert.ToInt32(CS_ATC.ATC_15);
+            panel[106] = Convert.ToInt32(CS_ATC.ATC_20);
+            panel[107] = Convert.ToInt32(CS_ATC.ATC_25);
+            panel[108] = Convert.ToInt32(CS_ATC.ATC_30);
+            panel[109] = Convert.ToInt32(CS_ATC.ATC_35);
+            panel[110] = Convert.ToInt32(CS_ATC.ATC_40);
+            panel[111] = Convert.ToInt32(CS_ATC.ATC_45);
+            panel[112] = Convert.ToInt32(CS_ATC.ATC_50);
+            panel[113] = Convert.ToInt32(CS_ATC.ATC_55);
+            panel[114] = Convert.ToInt32(CS_ATC.ATC_60);
+            panel[115] = Convert.ToInt32(CS_ATC.ATC_65);
+            panel[116] = Convert.ToInt32(CS_ATC.ATC_70);
+            panel[117] = Convert.ToInt32(CS_ATC.ATC_75);
+            panel[118] = Convert.ToInt32(CS_ATC.ATC_80);
+            panel[119] = Convert.ToInt32(CS_ATC.ATC_85);
+            panel[120] = Convert.ToInt32(CS_ATC.ATC_90);
+            panel[121] = Convert.ToInt32(CS_ATC.ATC_95);
+            panel[122] = Convert.ToInt32(CS_ATC.ATC_100);
+            panel[123] = Convert.ToInt32(CS_ATC.ATC_105);
+            panel[124] = Convert.ToInt32(CS_ATC.ATC_110);
 
-            panel[285] = Convert.ToInt32(CS_ATC.ATC_Stop);
-            panel[286] = Convert.ToInt32(CS_ATC.ATC_Proceed);
+            panel[131] = Convert.ToInt32(CS_ATC.ATC_Stop);
+            panel[132] = Convert.ToInt32(CS_ATC.ATC_Proceed);
 
-            panel[313] = Convert.ToInt32(CS_ATC.ATC_P);
-            panel[312] = Convert.ToInt32(CS_ATC.ATC_SignalAnn);
-            panel[284] = Convert.ToInt32(CS_ATC.ATC_X);
+            panel[134] = Convert.ToInt32(CS_ATC.ATC_P);
+            panel[133] = Convert.ToInt32(CS_ATC.ATC_SignalAnn);
+            panel[101] = Convert.ToInt32(CS_ATC.ATC_X);
 
-            panel[314] = CS_ATC.ORPNeedle;
+            panel[135] = CS_ATC.ORPNeedle;
             panel[311] = CS_ATC.ATCNeedle;
             panel[310] = Convert.ToInt32(CS_ATC.ATCNeedle_Disappear);
 
-            panel[263] = Convert.ToInt32(CS_ATC.ATC_ATC);
-            if (CS_ATC.ATCEnable) panel[274] = Convert.ToInt32(CS_ATC.ATC_Depot);
-            if ((CS_ATC.ATCEnable&&CS_ATC.ATC_Noset) || (WS_ATC.ATCEnable && WS_ATC.ATC_Noset)) panel[277] = Convert.ToInt32(CS_ATC.ATC_Noset || WS_ATC.ATC_Noset);
-            panel[270] = Convert.ToInt32(CS_ATC.ATC_ServiceBrake || WS_ATC.ATC_ServiceBrake);
-            panel[266] = Convert.ToInt32(CS_ATC.ATC_EmergencyBrake || WS_ATC.ATC_EmergencyBrake);
+            panel[19] = Convert.ToInt32(CS_ATC.ATC_ATC);
+            if (CS_ATC.ATCEnable) panel[31] = Convert.ToInt32(CS_ATC.ATC_Depot);
+            if ((CS_ATC.ATCEnable&&CS_ATC.ATC_Noset) || (WS_ATC.ATCEnable && WS_ATC.ATC_Noset)) panel[29] = Convert.ToInt32(CS_ATC.ATC_Noset || WS_ATC.ATC_Noset);
+            panel[23] = Convert.ToInt32(CS_ATC.ATC_ServiceBrake || WS_ATC.ATC_ServiceBrake);
+            panel[22] = Convert.ToInt32(CS_ATC.ATC_EmergencyBrake || WS_ATC.ATC_EmergencyBrake);
             panel[280] = Convert.ToInt32(CS_ATC.ATC_EmergencyOperation);
 
-            panel[340] = Convert.ToInt32(WS_ATC.ATC_WSATC);
+            panel[34] = Convert.ToInt32(WS_ATC.ATC_WSATC);
 
-            sound[258] = (int)CS_ATC.ATC_Ding;
-            sound[259] = (int)CS_ATC.ATC_ORPBeep;
-            if (CS_ATC.ATCEnable && CS_ATC.ATC_Noset) { sound[256] = (int)CS_ATC.ATC_WarningBell; }
+            sound[2] = (int)CS_ATC.ATC_Ding;
+            sound[3] = (int)CS_ATC.ATC_ORPBeep;
+            if (CS_ATC.ATCEnable && CS_ATC.ATC_Noset) { sound[0] = (int)CS_ATC.ATC_WarningBell; }
             sound[261] = (int)CS_ATC.ATC_EmergencyOperationAnnounce;
         }
     }
