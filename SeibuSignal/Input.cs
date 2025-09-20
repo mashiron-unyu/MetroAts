@@ -26,9 +26,9 @@ namespace SeibuSignal {
             var sound = Native.AtsSoundArray;
             SeibuATS.ResetAll();
             ATC.ResetAll();
-            if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-            panel[275] = 0;
-            panel[278] = 0;
+            if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+            panel[33] = 0;//うさプラ互換
+            panel[30] = 0;//うさプラ互換
             if (e.DefaultBrakePosition == BrakePosition.Emergency) {
                 BrakeTriggered = false;
                 Keyin = false;
@@ -67,9 +67,9 @@ namespace SeibuSignal {
                     SignalEnable = false;
                     SeibuATS.ResetAll();
                     ATC.ResetAll();
-                    if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                    panel[275] = 0;
-                    panel[278] = 0;
+                    if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+                    panel[33] = 0;//うさプラ互換
+                    panel[30] = 0;//うさプラ互換
                     UpdatePanelAndSound(panel, sound);
                 } else if (e.KeyName == AtsKeyName.J) {
                     Sound_Keyin = AtsSoundControlInstruction.Play;

@@ -27,22 +27,22 @@ namespace MetroAts {
                     KeyText = "未挿入";
                     break;
                 case KeyPosList.Tokyu:
-                    KeyText = "東　急";
+                    KeyText = "東急";
                     break;
                 case KeyPosList.Metro:
                     KeyText = "メトロ";
                     break;
                 case KeyPosList.Tobu:
-                    KeyText = "東　武";
+                    KeyText = "東武";
                     break;
                 case KeyPosList.Seibu:
-                    KeyText = "西　武";
+                    KeyText = "西武";
                     break;
                 case KeyPosList.ToyoKosoku:
-                    KeyText = "東　葉";
+                    KeyText = "東葉";
                     break;
                 case KeyPosList.JR:
-                    KeyText = "Ｊ　Ｒ";
+                    KeyText = "JR";
                     break;
                 case KeyPosList.Sotetsu:
                     KeyText = "相　鉄";
@@ -51,7 +51,7 @@ namespace MetroAts {
                     KeyText = "小田急";
                     break;
                 default:
-                    KeyText = "無　効";
+                    KeyText = "無効";
                     break;
             }
 
@@ -75,7 +75,7 @@ namespace MetroAts {
                     SignalSWText = "相鉄";
                     break;
                 case SignalSWList.JR:
-                    SignalSWText = "ＪＲ";
+                    SignalSWText = "JR";
                     break;
                 case SignalSWList.TokyuATS:
                     SignalSWText = "東急ATS";
@@ -124,9 +124,10 @@ namespace MetroAts {
 
             panel[Config.Panel_SignalSWoutput] = (int)Config.SignalSWLists[NowSignalSW];
 
-            sound[270] = (int)Sound_Keyin;
-            sound[271] = (int)Sound_Keyout;
-            sound[272] = (int)Sound_SignalSW;
+            //うさプラ互換
+            sound[10] = (int)Sound_Keyin;
+            sound[11] = (int)Sound_Keyout;
+            sound[22] = (int)Sound_SignalSW;
 
             Sound_Keyin = Sound_Keyout = Sound_SignalSW = AtsSoundControlInstruction.Continue;
         }

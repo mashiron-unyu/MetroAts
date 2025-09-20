@@ -95,10 +95,19 @@ namespace TobuSignal {
                     if (state.Time.TotalMilliseconds - LastBeaconPassTime.TotalMilliseconds < 1000) EBType = EBTypes.CannotReleaseUntilStop;
                     LastBeaconPassTime = state.Time;
                     break;
-                case 5:
+                case 4:
                     if (StopAnnounce == 0) StopAnnounce = 1;
                     if (StopAnnounce == 1) StopAnnounce = 2;
                     break;
+/*                case 5:
+                    if (StopPattern == SpeedPattern.inf)
+                    {
+                        StopAnnounce = 2;
+                        StopPattern = new SpeedPattern(0, state.Location + 500);
+                    }
+                    else
+                        StopAnnounce = 1;
+                    break;*/調整中
                 case 9:
                     if (MPPPattern == SpeedPattern.inf)
                         MPPPattern = new SpeedPattern(60, state.Location + 237);

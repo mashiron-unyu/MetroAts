@@ -23,9 +23,9 @@ namespace OdakyuSignal {
         private void Initialize(object sender, StartedEventArgs e) {
             var panel = Native.AtsPanelArray;
             var sound = Native.AtsSoundArray;
-            if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-            panel[275] = 0;
-            panel[278] = 0;
+            if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+            panel[275] = 0;//調整中
+            panel[278] = 0;//調整中
             if (e.DefaultBrakePosition == BrakePosition.Emergency) {
                 BrakeTriggered = false;
                 Keyin = false;
@@ -62,9 +62,9 @@ namespace OdakyuSignal {
                     BrakeTriggered = false;
                     SignalEnable = false;
 
-                    if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                    panel[275] = 0;
-                    panel[278] = 0;
+                    if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+                    panel[275] = 0;//調整中
+                    panel[278] = 0;//調整中
                     UpdatePanelAndSound(panel, sound);
                 } else if (e.KeyName == AtsKeyName.J) {
                     Sound_Keyin = AtsSoundControlInstruction.Play;

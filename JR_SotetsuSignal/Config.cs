@@ -10,9 +10,11 @@ using System.Text;
 using System.Diagnostics;
 using BveEx.PluginHost;
 
-namespace JR_SotetsuSignal {
+namespace JR_SotetsuSignal
+{
 
-    public static class Config {
+    public static class Config
+    {
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
 
@@ -21,7 +23,7 @@ namespace JR_SotetsuSignal {
         public static string path;
         private const int buffer_size = 4096;
 
-        //ÅäÖÃÏî
+        //é…ç½®é¡¹
         public static bool SNEnable = true;
         public static bool PPowerAlwaysLight = false;
 
@@ -32,77 +34,103 @@ namespace JR_SotetsuSignal {
         public static int Panel_brakeoutput = 1023;
         public static int Panel_keyoutput = 1023;
 
-        public static void Load() {
+        public static void Load()
+        {
             path = new FileInfo(Path.Combine(PluginDir, "JR_SotetsuSignal.ini")).FullName;
-            if (File.Exists(path)) {
-                try {
+            if (File.Exists(path))
+            {
+                try
+                {
                     ReadConfig("panel", "atclimituseneedle", ref ATCLimitUseNeedle);
                     ReadConfig("panel", "orpuseneedle", ref ORPUseNeedle);
 
                     ReadConfig("ats", "snenable", ref SNEnable);
                     ReadConfig("ats", "ppowerlampalwayslight", ref PPowerAlwaysLight);
 
-                    ReadConfig("output","power",ref Panel_poweroutput);
-                    ReadConfig("output","brake",ref Panel_brakeoutput);
-                    ReadConfig("output","key",ref Panel_keyoutput);
-                } catch (Exception ex) {
+                    ReadConfig("output", "power", ref Panel_poweroutput);
+                    ReadConfig("output", "brake", ref Panel_brakeoutput);
+                    ReadConfig("output", "key", ref Panel_keyoutput);
+                }
+                catch (Exception ex)
+                {
                     throw ex;
                 }
-            } else throw new BveFileLoadException("Unable to find configuration file: JR_SotetsuSignal.ini","JR_SotetsuSignal");
+            }
+            else throw new BveFileLoadException("Unable to find configuration file: JR_SotetsuSignal.ini", "JR_SotetsuSignal");
         }
 
-        //¶ÁÈ¡ÅäÖÃÏà¹Øº¯Êý
-        private static void ReadConfig(string Section, string Key, ref int Value) {
+        //è¯»å–é…ç½®ç›¸å…³å‡½æ•°
+        private static void ReadConfig(string Section, string Key, ref int Value)
+        {
             var OriginalVal = Value;
             var RetVal = new StringBuilder(buffer_size);
             var Readsize = GetPrivateProfileString(Section, Key, "", RetVal, buffer_size, path);
-            if (Readsize > 0 && Readsize < buffer_size - 1) {
+            if (Readsize > 0 && Readsize < buffer_size - 1)
+            {
                 Value = Convert.ToInt32(RetVal.ToString());
-            } else {
+            }
+            else
+            {
                 Value = OriginalVal;
             }
         }
 
-        private static void ReadConfig(string Section, string Key, ref double Value) {
+        private static void ReadConfig(string Section, string Key, ref double Value)
+        {
             var OriginalVal = Value;
             var RetVal = new StringBuilder(buffer_size);
             var Readsize = GetPrivateProfileString(Section, Key, "", RetVal, buffer_size, path);
-            if (Readsize > 0 && Readsize < buffer_size - 1) {
+            if (Readsize > 0 && Readsize < buffer_size - 1)
+            {
                 Value = Convert.ToDouble(RetVal.ToString());
-            } else {
+            }
+            else
+            {
                 Value = OriginalVal;
             }
         }
 
-        private static void ReadConfig(string Section, string Key, ref bool Value) {
+        private static void ReadConfig(string Section, string Key, ref bool Value)
+        {
             var OriginalVal = Value;
             var RetVal = new StringBuilder(buffer_size);
             var Readsize = GetPrivateProfileString(Section, Key, "", RetVal, buffer_size, path);
-            if (Readsize > 0 && Readsize < buffer_size - 1) {
+            if (Readsize > 0 && Readsize < buffer_size - 1)
+            {
                 Value = Convert.ToBoolean(RetVal.ToString());
-            } else {
+            }
+            else
+            {
                 Value = OriginalVal;
             }
         }
 
-        private static void ReadConfig(string Section, string Key, ref string Value) {
+        private static void ReadConfig(string Section, string Key, ref string Value)
+        {
             var OriginalVal = Value;
             var RetVal = new StringBuilder(buffer_size);
             var Readsize = GetPrivateProfileString(Section, Key, "", RetVal, buffer_size, path);
-            if (Readsize > 0 && Readsize < buffer_size - 1) {
+            if (Readsize > 0 && Readsize < buffer_size - 1)
+            {
                 Value = RetVal.ToString();
-            } else {
+            }
+            else
+            {
                 Value = OriginalVal;
             }
         }
 
-        private static void ReadConfig(string Section, string Key, ref Keys Value) {
+        private static void ReadConfig(string Section, string Key, ref Keys Value)
+        {
             var OriginalVal = Value;
             var RetVal = new StringBuilder(buffer_size);
             var Readsize = GetPrivateProfileString(Section, Key, "", RetVal, buffer_size, path);
-            if (Readsize > 0 && Readsize < buffer_size - 1) {
+            if (Readsize > 0 && Readsize < buffer_size - 1)
+            {
                 Value = (Keys)Enum.Parse(typeof(Keys), RetVal.ToString(), false);
-            } else {
+            }
+            else
+            {
                 Value = OriginalVal;
             }
         }

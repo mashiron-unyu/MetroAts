@@ -36,7 +36,7 @@ namespace JR_SotetsuSignal {
                 BrakeTriggered = false;
                 Keyin = false;
                 SignalEnable = false;
-                sound[256] = (int)AtsSoundControlInstruction.Stop;
+                sound[0] = (int)AtsSoundControlInstruction.Stop;// うさプラ互換
             }
             UpdatePanelAndSound(panel, sound);
         }
@@ -79,7 +79,7 @@ namespace JR_SotetsuSignal {
                     Keyin = false;
                     BrakeTriggered = false;
                     SignalEnable = false;
-                    sound[256] = (int)AtsSoundControlInstruction.Stop;
+                    sound[0] = (int)AtsSoundControlInstruction.Stop;// うさプラ互換
 
                 } else if (e.KeyName == AtsKeyName.J) {
                     Sound_Keyin = AtsSoundControlInstruction.Play;

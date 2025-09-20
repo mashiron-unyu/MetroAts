@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TobuSignal {
     internal partial class TSP_ATS {
         //InternalValue -> ATS
-        private static SpeedPattern ATSPattern = SpeedPattern.inf, MPPPattern = SpeedPattern.inf, SignalPattern = SpeedPattern.inf;
+        private static SpeedPattern ATSPattern = SpeedPattern.inf, StopPattern = SpeedPattern.inf, MPPPattern = SpeedPattern.inf, SignalPattern = SpeedPattern.inf;//調整中
         private static double MPPEndLocation = 0;
         private static TimeSpan LastBeaconPassTime = TimeSpan.Zero, InitializeStartTime = TimeSpan.Zero;
         private static bool NeedConfirmOperation = false, isDoorOpened = false;

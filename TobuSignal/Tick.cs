@@ -70,7 +70,7 @@ namespace TobuSignal {
                     }
                 }
                 if (currentSection.CurrentSignalIndex >= 109 && currentSection.CurrentSignalIndex != 134 && currentSection.CurrentSignalIndex < 149 && !StandAloneMode)
-                    sound[256] = corePlugin.SignalSWPos == MetroAts.SignalSWList.Tobu ?
+                    sound[0] = corePlugin.SignalSWPos == MetroAts.SignalSWList.Tobu ?//うさプラ互換
                         (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                 if (!StandAloneMode) {
                     if (!corePlugin.SubPluginEnabled) corePlugin.SubPluginEnabled = true;
@@ -79,7 +79,7 @@ namespace TobuSignal {
                         SignalEnable = false;
                         T_DATC.ResetAll();
                         TSP_ATS.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                     }          
                 }
                 if (BrakeTriggered) {
@@ -107,8 +107,8 @@ namespace TobuSignal {
                 leverText = (LeverText)BveHacker.MainForm.Assistants.Items.First(item => item is LeverText);
                 leverText.Text = $"キー:{(Keyin ? "入" : "切")} \n{description}";
                 if (isDoorOpen) AtsHandles.ReverserPosition = ReverserPosition.N;
-                sound[270] = (int)Sound_Keyin;
-                sound[271] = (int)Sound_Keyout;
+                sound[10] = (int)Sound_Keyin;//うさプラ互換
+                sound[11] = (int)Sound_Keyout;//うさプラ互換
                 panel[Config.Panel_keyoutput] = Convert.ToInt32(Keyin);
             }
             
@@ -123,75 +123,75 @@ namespace TobuSignal {
         }
 
         private static void UpdatePanelAndSound(IList<int> panel,IList<int> sound) {
-            sound[273] = (int)Sound_ResetSW;
+            sound[28] = (int)Sound_ResetSW;//うさプラ互換
 
-            //panel
-            panel[287] = Convert.ToInt32(T_DATC.ATC_01);
-            panel[288] = Convert.ToInt32(T_DATC.ATC_10);
-            panel[289] = Convert.ToInt32(T_DATC.ATC_15);
-            panel[290] = Convert.ToInt32(T_DATC.ATC_20);
-            panel[291] = Convert.ToInt32(T_DATC.ATC_25);
-            panel[292] = Convert.ToInt32(T_DATC.ATC_30);
-            panel[293] = Convert.ToInt32(T_DATC.ATC_35);
-            panel[294] = Convert.ToInt32(T_DATC.ATC_40);
-            panel[295] = Convert.ToInt32(T_DATC.ATC_45);
-            panel[296] = Convert.ToInt32(T_DATC.ATC_50);
-            panel[297] = Convert.ToInt32(T_DATC.ATC_55);
-            panel[298] = Convert.ToInt32(T_DATC.ATC_60);
-            panel[299] = Convert.ToInt32(T_DATC.ATC_65);
-            panel[300] = Convert.ToInt32(T_DATC.ATC_70);
-            panel[301] = Convert.ToInt32(T_DATC.ATC_75);
-            panel[302] = Convert.ToInt32(T_DATC.ATC_80);
-            panel[303] = Convert.ToInt32(T_DATC.ATC_85);
-            panel[304] = Convert.ToInt32(T_DATC.ATC_90);
-            panel[305] = Convert.ToInt32(T_DATC.ATC_95);
-            panel[306] = Convert.ToInt32(T_DATC.ATC_100);
-            panel[307] = Convert.ToInt32(T_DATC.ATC_105);
-            panel[308] = Convert.ToInt32(T_DATC.ATC_110);
+            //panel うさプラ互換
+            panel[102] = Convert.ToInt32(T_DATC.ATC_01);
+            panel[104] = Convert.ToInt32(T_DATC.ATC_10);
+            panel[105] = Convert.ToInt32(T_DATC.ATC_15);
+            panel[106] = Convert.ToInt32(T_DATC.ATC_20);
+            panel[107] = Convert.ToInt32(T_DATC.ATC_25);
+            panel[108] = Convert.ToInt32(T_DATC.ATC_30);
+            panel[109] = Convert.ToInt32(T_DATC.ATC_35);
+            panel[110] = Convert.ToInt32(T_DATC.ATC_40);
+            panel[111] = Convert.ToInt32(T_DATC.ATC_45);
+            panel[112] = Convert.ToInt32(T_DATC.ATC_50);
+            panel[113] = Convert.ToInt32(T_DATC.ATC_55);
+            panel[114] = Convert.ToInt32(T_DATC.ATC_60);
+            panel[115] = Convert.ToInt32(T_DATC.ATC_65);
+            panel[116] = Convert.ToInt32(T_DATC.ATC_70);
+            panel[117] = Convert.ToInt32(T_DATC.ATC_75);
+            panel[118] = Convert.ToInt32(T_DATC.ATC_80);
+            panel[119] = Convert.ToInt32(T_DATC.ATC_85);
+            panel[120] = Convert.ToInt32(T_DATC.ATC_90);
+            panel[121] = Convert.ToInt32(T_DATC.ATC_95);
+            panel[122] = Convert.ToInt32(T_DATC.ATC_100);
+            panel[123] = Convert.ToInt32(T_DATC.ATC_105);
+            panel[124] = Convert.ToInt32(T_DATC.ATC_110);
 
             if (!Config.SeparateATCGRlamp) {
-                panel[285] = Convert.ToInt32(T_DATC.ATC_Stop);
-                panel[286] = Convert.ToInt32(T_DATC.ATC_Proceed);
+                panel[131] = Convert.ToInt32(T_DATC.ATC_Stop);
+                panel[132] = Convert.ToInt32(T_DATC.ATC_Proceed);
             } else {
                 panel[316] = Convert.ToInt32(T_DATC.ATC_Stop);
                 panel[317] = Convert.ToInt32(T_DATC.ATC_Proceed);
             }
-            
 
-            panel[313] = Convert.ToInt32(T_DATC.ATC_P);
-            panel[284] = Convert.ToInt32(T_DATC.ATC_X);
 
-            panel[314] = T_DATC.ORPNeedle;
+            panel[134] = Convert.ToInt32(T_DATC.ATC_P);
+            panel[101] = Convert.ToInt32(T_DATC.ATC_X);
+
+            panel[135] = T_DATC.ORPNeedle;
             panel[311] = T_DATC.ATCNeedle;
             panel[310] = Convert.ToInt32(T_DATC.ATCNeedle_Disappear);
-            panel[323] = T_DATC.ATC_EndPointDistance;
-            panel[324] = T_DATC.ATC_SwitcherPosition;
+            panel[129] = T_DATC.ATC_EndPointDistance;
+            panel[130] = T_DATC.ATC_SwitcherPosition;
 
-            panel[318] = Convert.ToInt32(T_DATC.ATC_TobuATC);
-            panel[319] = Convert.ToInt32(T_DATC.ATC_Depot);
-            panel[321] = Convert.ToInt32(T_DATC.ATC_ServiceBrake);
-            panel[320] = Convert.ToInt32(T_DATC.ATC_EmergencyBrake);
-            panel[326] = Convert.ToInt32(T_DATC.ATC_EmergencyOperation);
-            panel[325] = Convert.ToInt32(T_DATC.ATC_StationStop);
-            panel[322] = Convert.ToInt32(T_DATC.ATC_PatternApproach);
+            panel[74] = Convert.ToInt32(T_DATC.ATC_TobuATC);
+            panel[75] = Convert.ToInt32(T_DATC.ATC_Depot);
+            panel[77] = Convert.ToInt32(T_DATC.ATC_ServiceBrake);
+            panel[76] = Convert.ToInt32(T_DATC.ATC_EmergencyBrake);
+            panel[326] = Convert.ToInt32(T_DATC.ATC_EmergencyOperation);//調整中
+            panel[252] = Convert.ToInt32(T_DATC.ATC_StationStop);
+            panel[128] = Convert.ToInt32(T_DATC.ATC_PatternApproach);
 
-            panel[327] = Convert.ToInt32(TSP_ATS.ATS_TobuAts);
-            panel[330] = Convert.ToInt32(TSP_ATS.ATS_ATSEmergencyBrake);
-            panel[332] = Convert.ToInt32(TSP_ATS.ATS_StopAnnounce);
-            panel[333] = Convert.ToInt32(TSP_ATS.ATS_EmergencyOperation);
-            panel[331] = Convert.ToInt32(TSP_ATS.ATS_Confirm);
-            panel[328] = Convert.ToInt32(TSP_ATS.ATS_60);
-            panel[329] = Convert.ToInt32(TSP_ATS.ATS_15);
+            panel[41] = Convert.ToInt32(TSP_ATS.ATS_TobuAts);
+            panel[44] = Convert.ToInt32(TSP_ATS.ATS_ATSEmergencyBrake);
+            panel[252] = Convert.ToInt32(TSP_ATS.ATS_StopAnnounce);
+            panel[333] = Convert.ToInt32(TSP_ATS.ATS_EmergencyOperation);//調整中
+            panel[331] = Convert.ToInt32(TSP_ATS.ATS_Confirm);//調整中
+            panel[43] = Convert.ToInt32(TSP_ATS.ATS_60);
+            panel[42] = Convert.ToInt32(TSP_ATS.ATS_15);
 
             //sound
-            sound[258] = (int)T_DATC.ATC_Ding;
-            var soundPlayMode = SoundPlayCommands.GetMode(sound[265]);
+            sound[2] = (int)T_DATC.ATC_Ding;//うさプラ互換
+            var soundPlayMode = SoundPlayCommands.GetMode(sound[116]);
             if (soundPlayMode == SoundPlayMode.Continue && T_DATC.ATC_PatternApproachBeep == AtsSoundControlInstruction.Play)
-                sound[265] = (int)AtsSoundControlInstruction.Stop;
-            sound[265] = (int)T_DATC.ATC_PatternApproachBeep;
-            sound[267] = (int)T_DATC.ATC_StationStopAnnounce;
-            sound[266] = (int)Sound_Switchover;
-            sound[268] = (int)T_DATC.ATC_EmergencyOperationAnnounce;
+                sound[116] = (int)AtsSoundControlInstruction.Stop;
+            sound[116] = (int)T_DATC.ATC_PatternApproachBeep;
+            sound[117] = (int)T_DATC.ATC_StationStopAnnounce;
+            sound[118] = (int)Sound_Switchover;//うさプラ互換
+            sound[268] = (int)T_DATC.ATC_EmergencyOperationAnnounce;//調整中
         }
     }
 }

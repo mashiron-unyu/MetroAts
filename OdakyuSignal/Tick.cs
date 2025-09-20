@@ -56,8 +56,8 @@ namespace OdakyuSignal {
                 leverText = (LeverText)BveHacker.MainForm.Assistants.Items.First(item => item is LeverText);
                 leverText.Text = $"キー:{(Keyin ? "入" : "切")} \n{description}";
                 if (isDoorOpen) AtsHandles.ReverserPosition = ReverserPosition.N;
-                sound[270] = (int)Sound_Keyin;
-                sound[271] = (int)Sound_Keyout;
+                sound[10] = (int)Sound_Keyin;//うさプラ互換
+                sound[11] = (int)Sound_Keyout;//うさプラ互換
                 panel[Config.Panel_keyoutput] = Convert.ToInt32(Keyin);
             }
 

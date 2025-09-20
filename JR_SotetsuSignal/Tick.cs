@@ -76,7 +76,7 @@ namespace JR_SotetsuSignal {
                 }
                 if ((currentSection.CurrentSignalIndex >= 9 && currentSection.CurrentSignalIndex != 34 && currentSection.CurrentSignalIndex < 49)
                     || (currentSection.CurrentSignalIndex >= 50 && currentSection.CurrentSignalIndex <= 54)) {
-                    sound[256] = (int)AtsSoundControlInstruction.PlayLooping;
+                    sound[0] = (int)AtsSoundControlInstruction.PlayLooping;// うさプラ互換
                 }
                 if (!StandAloneMode) {
                     if (!(corePlugin.KeyPos == MetroAts.KeyPosList.JR || corePlugin.KeyPos == MetroAts.KeyPosList.Sotetsu)
@@ -85,7 +85,7 @@ namespace JR_SotetsuSignal {
                         SignalEnable = false;
                         ATS_P.ResetAll();
                         ATS_SN.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;// うさプラ互換
                     }
                 }
                 if (BrakeTriggered) {
@@ -113,8 +113,8 @@ namespace JR_SotetsuSignal {
                 leverText = (LeverText)BveHacker.MainForm.Assistants.Items.First(item => item is LeverText);
                 leverText.Text = $"キー:{(Keyin ? "入" : "切")} \n{description}";
                 if (isDoorOpen) AtsHandles.ReverserPosition = ReverserPosition.N;
-                sound[270] = (int)Sound_Keyin;
-                sound[271] = (int)Sound_Keyout;
+                sound[10] = (int)Sound_Keyin;// うさプラ互換
+                sound[11] = (int)Sound_Keyout;// うさプラ互換
                 panel[Config.Panel_keyoutput] = Convert.ToInt32(Keyin);
             }
 
@@ -123,22 +123,22 @@ namespace JR_SotetsuSignal {
         }
 
         private static void UpdatePanelAndSound(IList<int> panel, IList<int> sound) {
-            sound[273] = (int)Sound_ResetSW;
+            sound[28] = (int)Sound_ResetSW;// うさプラ互換
 
-            //panel
-            panel[256] = Convert.ToInt32(ATS_P.P_Power || Config.PPowerAlwaysLight);
-            panel[257] = Convert.ToInt32(ATS_P.P_PatternApproach);
-            panel[258] = Convert.ToInt32(ATS_P.P_BrakeActioned);
-            panel[259] = Convert.ToInt32(ATS_P.P_EBActioned);
-            panel[260] = Convert.ToInt32(ATS_P.P_BrakeOverride);
-            panel[261] = Convert.ToInt32(ATS_P.P_PEnable);
-            panel[262] = Convert.ToInt32(ATS_P.P_Fail);
-            panel[341] = Convert.ToInt32(ATS_SN.SN_Power);
-            panel[342] = Convert.ToInt32(ATS_SN.SN_Action);
+            //panel (うさプラ互換)
+            panel[2] = Convert.ToInt32(ATS_P.P_Power || Config.PPowerAlwaysLight);
+            panel[3] = Convert.ToInt32(ATS_P.P_PatternApproach);
+            panel[5] = Convert.ToInt32(ATS_P.P_BrakeActioned);
+            panel[259] = Convert.ToInt32(ATS_P.P_EBActioned);//調整中
+            panel[4] = Convert.ToInt32(ATS_P.P_BrakeOverride);
+            panel[6] = Convert.ToInt32(ATS_P.P_PEnable);
+            panel[7] = Convert.ToInt32(ATS_P.P_Fail);
+            panel[0] = Convert.ToInt32(ATS_SN.SN_Power);
+            panel[1] = Convert.ToInt32(ATS_SN.SN_Action);
 
-            sound[258] = (int)ATS_P.P_Ding;
-            sound[257] = (int)ATS_SN.SN_Chime;
-            if(ATS_SN.ATSEnable)sound[256] = (int)ATS_SN.SN_WarningBell;
+            sound[2] = (int)ATS_P.P_Ding;//うさプラ互換
+            sound[1] = (int)ATS_SN.SN_Chime;//うさプラ互換
+            if (ATS_SN.ATSEnable)sound[0] = (int)ATS_SN.SN_WarningBell;//うさプラ互換
         }
     }
 }

@@ -58,7 +58,7 @@ namespace TokyuSignal {
                         }
                         if (ATC.ATCEnable) ATC.ResetAll();
                     }
-                    panel[279] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset ? 1 : 0;
+                    panel[28] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset ? 1 : 0;//うさプラ互換
                     if (currentSection.CurrentSignalIndex >= 9 && currentSection.CurrentSignalIndex != 34 && currentSection.CurrentSignalIndex < 49) {
                         if (!ATC.ATCEnable && (Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.Noset))
                             ATC.Init(state.Time);
@@ -68,10 +68,10 @@ namespace TokyuSignal {
                             AtsHandles.ReverserPosition = ReverserPosition.N;
                         }
                         if (!ATC.ATCEnable)
-                            sound[256] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
+                            sound[0] = Config.SignalSWLists[NowSignalSW] == SignalSWListStandAlone.ATC ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;//うさプラ互換
                     } else if (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset) {
                         if (ATC.ATCEnable) ATC.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                     }
                 } else {
                     if (!corePlugin.SubPluginEnabled) corePlugin.SubPluginEnabled = true;
@@ -102,7 +102,7 @@ namespace TokyuSignal {
                         }
                         if (ATC.ATCEnable) ATC.ResetAll();
                     }
-                    panel[279] = corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset ? 1 : 0;
+                    panel[28] = corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset ? 1 : 0;//うさプラ互換
                     if (currentSection.CurrentSignalIndex >= 9 && currentSection.CurrentSignalIndex != 34 && currentSection.CurrentSignalIndex < 49) {
                         if (!ATC.ATCEnable) {
                             if (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset) {
@@ -116,11 +116,11 @@ namespace TokyuSignal {
                         //    AtsHandles.BrakeNotch = vehicleSpec.BrakeNotches + 1;
                         //    AtsHandles.ReverserPosition = ReverserPosition.N;
                         //}
-                        if (!ATC.ATCEnable) sound[256] = (corePlugin.SignalSWPos == MetroAts.SignalSWList.ATC)
+                        if (!ATC.ATCEnable) sound[0] = (corePlugin.SignalSWPos == MetroAts.SignalSWList.ATC)//うさプラ互換
                             ? (int)AtsSoundControlInstruction.Stop : (int)AtsSoundControlInstruction.PlayLooping;
                     } else if (corePlugin.SignalSWPos == MetroAts.SignalSWList.Noset) {
                         if (ATC.ATCEnable) ATC.ResetAll();
-                        sound[256] = (int)AtsSoundControlInstruction.Stop;
+                        sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                     }
                 }
                 if (!StandAloneMode) {
@@ -132,9 +132,9 @@ namespace TokyuSignal {
                         SignalEnable = false;
                         ATC.ResetAll();
                         TokyuATS.ResetAll();
-                        if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                        panel[276] = 0;
-                        panel[279] = 0;
+                        if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+                        panel[32] = 0;//うさプラ互換
+                        panel[28] = 0;//うさプラ互換
                     }
                 }
                 if (BrakeTriggered) {
@@ -150,9 +150,9 @@ namespace TokyuSignal {
                         SignalEnable = true;
                     AtsHandles.BrakeNotch = vehicleSpec.BrakeNotches + 1;
                     AtsHandles.ReverserPosition = ReverserPosition.N;
-                    if (sound[256] != (int)AtsSoundControlInstruction.Stop) sound[256] = (int)AtsSoundControlInstruction.Stop;
-                    panel[276] = 0;
-                    panel[279] = 0;
+                    if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+                    panel[32] = 0;//うさプラ互換
+                    panel[28] = 0;//うさプラ互換
                 } else {
                     Keyin = corePlugin.KeyPos == MetroAts.KeyPosList.Tokyu;
                     if (!SignalEnable && Keyin &&
@@ -184,9 +184,9 @@ namespace TokyuSignal {
                 leverText = (LeverText)BveHacker.MainForm.Assistants.Items.First(item => item is LeverText);
                 leverText.Text = $"キー:{(Keyin ? "入" : "切")} 保安:{SignalSWText}\n{description}";
                 if (isDoorOpen) AtsHandles.ReverserPosition = ReverserPosition.N;
-                sound[270] = (int)Sound_Keyin;
-                sound[271] = (int)Sound_Keyout;
-                sound[272] = (int)Sound_SignalSW;
+                sound[10] = (int)Sound_Keyin;//うさプラ互換
+                sound[11] = (int)Sound_Keyout;//うさプラ互換
+                sound[22] = (int)Sound_SignalSW;//うさプラ互換
 
                 panel[Config.Panel_keyoutput] = Convert.ToInt32(Keyin);
                 panel[Config.Panel_SignalSWoutput] = (int)Config.SignalSWLists[NowSignalSW];
@@ -201,68 +201,68 @@ namespace TokyuSignal {
         }
 
         private static void UpdatePanelAndSound(IList<int> panel, IList<int> sound) {
-            sound[273] = (int)Sound_ResetSW;
+            sound[28] = (int)Sound_ResetSW;//うさプラ互換
 
-            //panel
-            panel[287] = Convert.ToInt32(ATC.ATC_01);
-            panel[288] = Convert.ToInt32(ATC.ATC_10);
-            panel[289] = Convert.ToInt32(ATC.ATC_15);
-            panel[290] = Convert.ToInt32(ATC.ATC_20);
-            panel[291] = Convert.ToInt32(ATC.ATC_25);
-            panel[292] = Convert.ToInt32(ATC.ATC_30);
-            panel[293] = Convert.ToInt32(ATC.ATC_35);
-            panel[294] = Convert.ToInt32(ATC.ATC_40);
-            panel[295] = Convert.ToInt32(ATC.ATC_45);
-            panel[296] = Convert.ToInt32(ATC.ATC_50);
-            panel[297] = Convert.ToInt32(ATC.ATC_55);
-            panel[298] = Convert.ToInt32(ATC.ATC_60);
-            panel[299] = Convert.ToInt32(ATC.ATC_65);
-            panel[300] = Convert.ToInt32(ATC.ATC_70);
-            panel[301] = Convert.ToInt32(ATC.ATC_75);
-            panel[302] = Convert.ToInt32(ATC.ATC_80);
-            panel[303] = Convert.ToInt32(ATC.ATC_85);
-            panel[304] = Convert.ToInt32(ATC.ATC_90);
-            panel[305] = Convert.ToInt32(ATC.ATC_95);
-            panel[306] = Convert.ToInt32(ATC.ATC_100);
-            panel[307] = Convert.ToInt32(ATC.ATC_105);
-            panel[308] = Convert.ToInt32(ATC.ATC_110);
+            //panel うさプラ互換
+            panel[102] = Convert.ToInt32(ATC.ATC_01);
+            panel[104] = Convert.ToInt32(ATC.ATC_10);
+            panel[105] = Convert.ToInt32(ATC.ATC_15);
+            panel[106] = Convert.ToInt32(ATC.ATC_20);
+            panel[107] = Convert.ToInt32(ATC.ATC_25);
+            panel[108] = Convert.ToInt32(ATC.ATC_30);
+            panel[109] = Convert.ToInt32(ATC.ATC_35);
+            panel[110] = Convert.ToInt32(ATC.ATC_40);
+            panel[111] = Convert.ToInt32(ATC.ATC_45);
+            panel[112] = Convert.ToInt32(ATC.ATC_50);
+            panel[113] = Convert.ToInt32(ATC.ATC_55);
+            panel[114] = Convert.ToInt32(ATC.ATC_60);
+            panel[115] = Convert.ToInt32(ATC.ATC_65);
+            panel[116] = Convert.ToInt32(ATC.ATC_70);
+            panel[117] = Convert.ToInt32(ATC.ATC_75);
+            panel[118] = Convert.ToInt32(ATC.ATC_80);
+            panel[119] = Convert.ToInt32(ATC.ATC_85);
+            panel[120] = Convert.ToInt32(ATC.ATC_90);
+            panel[121] = Convert.ToInt32(ATC.ATC_95);
+            panel[122] = Convert.ToInt32(ATC.ATC_100);
+            panel[123] = Convert.ToInt32(ATC.ATC_105);
+            panel[124] = Convert.ToInt32(ATC.ATC_110);
 
-            panel[285] = Convert.ToInt32(ATC.ATC_Stop);
-            panel[286] = Convert.ToInt32(ATC.ATC_Proceed);
+            panel[131] = Convert.ToInt32(ATC.ATC_Stop);
+            panel[132] = Convert.ToInt32(ATC.ATC_Proceed);
 
-            panel[313] = Convert.ToInt32(ATC.ATC_P);
-            panel[312] = Convert.ToInt32(ATC.ATC_SignalAnn);
-            panel[284] = Convert.ToInt32(ATC.ATC_X);
+            panel[134] = Convert.ToInt32(ATC.ATC_P);
+            panel[133] = Convert.ToInt32(ATC.ATC_SignalAnn);
+            panel[101] = Convert.ToInt32(ATC.ATC_X);
 
             panel[311] = ATC.ATCNeedle;
             panel[310] = Convert.ToInt32(ATC.ATCNeedle_Disappear);
 
-            panel[265] = Convert.ToInt32(ATC.ATC_ATC);
-            if (ATC.ATCEnable) panel[276] = Convert.ToInt32(ATC.ATC_Depot);
-            if (ATC.ATCEnable && ATC.ATC_Noset) panel[279] = Convert.ToInt32(ATC.ATC_Noset);
-            panel[272] = Convert.ToInt32(ATC.ATC_ServiceBrake);
-            panel[268] = Convert.ToInt32(ATC.ATC_EmergencyBrake);
-            panel[282] = Convert.ToInt32(ATC.ATC_EmergencyOperation);
-            panel[342] = Convert.ToInt32(ATC.ATC_StationStop);
+            panel[21] = Convert.ToInt32(ATC.ATC_ATC);
+            if (ATC.ATCEnable) panel[32] = Convert.ToInt32(ATC.ATC_Depot);//うさプラ互換
+            if (ATC.ATCEnable && ATC.ATC_Noset) panel[28] = Convert.ToInt32(ATC.ATC_Noset);//うさプラ互換
+            panel[23] = Convert.ToInt32(ATC.ATC_ServiceBrake);
+            panel[22] = Convert.ToInt32(ATC.ATC_EmergencyBrake);
+            panel[282] = Convert.ToInt32(ATC.ATC_EmergencyOperation);//調整中
+            panel[254] = Convert.ToInt32(ATC.ATC_StationStop);
 
-            panel[343] = Convert.ToInt32(TokyuATS.ATS_TokyuATS);
-            panel[344] = Convert.ToInt32(TokyuATS.ATS_EB);
-            panel[345] = Convert.ToInt32(TokyuATS.ATS_WarnNormal);
-            panel[346] = Convert.ToInt32(TokyuATS.ATS_WarnTriggered);
+            panel[11] = Convert.ToInt32(TokyuATS.ATS_TokyuATS);
+            panel[12] = Convert.ToInt32(TokyuATS.ATS_EB);
+            panel[16] = Convert.ToInt32(TokyuATS.ATS_WarnNormal);
+            panel[17] = Convert.ToInt32(TokyuATS.ATS_WarnTriggered);
 
-            sound[258] = (int)ATC.ATC_Ding;
-            sound[259] = (int)ATC.ATC_ORPBeep;
+            sound[2] = (int)ATC.ATC_Ding;//うさプラ互換
+            sound[3] = (int)ATC.ATC_ORPBeep;//うさプラ互換
             if (ATC.ATC_SignalAnnBeep == AtsSoundControlInstruction.Play)
-                sound[260] = (int)AtsSoundControlInstruction.Stop;
-            sound[260] = (int)ATC.ATC_SignalAnnBeep;
-            sound[269] = (int)TokyuATS.ATS_WarnBell;
+                sound[4] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
+            sound[4] = (int)ATC.ATC_SignalAnnBeep;//うさプラ互換
+            sound[19] = (int)TokyuATS.ATS_WarnBell;//うさプラ互換
             if (TokyuATS.ATSEnable) {
-                sound[256] = (int)TokyuATS.ATS_EBBell;
+                sound[0] = (int)TokyuATS.ATS_EBBell;//うさプラ互換
             }
             if (ATC.ATCEnable) {
-                sound[256] = (int)ATC.ATC_WarningBell;
+                sound[0] = (int)ATC.ATC_WarningBell;//うさプラ互換
             }
-            sound[261] = (int)ATC.ATC_EmergencyOperationAnnounce;
+            sound[261] = (int)ATC.ATC_EmergencyOperationAnnounce;//調整中
         }
     }
 }

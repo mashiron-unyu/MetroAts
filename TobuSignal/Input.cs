@@ -31,7 +31,7 @@ namespace TobuSignal {
                 BrakeTriggered = false;
                 Keyin = false;
                 SignalEnable = false;
-                sound[256] = (int)AtsSoundControlInstruction.Stop;
+                sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                 UpdatePanelAndSound(panel, sound);
             }
         }
@@ -67,7 +67,7 @@ namespace TobuSignal {
                     SignalEnable = false;
                     T_DATC.ResetAll();
                     TSP_ATS.ResetAll();
-                    sound[256] = (int)AtsSoundControlInstruction.Stop;
+                    sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                     UpdatePanelAndSound(panel, sound);
                 } else if (e.KeyName == AtsKeyName.J) {
                     Sound_Keyin = AtsSoundControlInstruction.Play;
