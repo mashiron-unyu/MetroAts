@@ -43,6 +43,9 @@ Copyright (c) 2021 zbx1425
 #### 相鉄·JR
 - [x] ATS-P
 - [x] ATS-SN
+- [] ATACS
+- [] ATC-6
+- [x] ATC-10
 #### 小田急
 - [ ] OM-ATS
 - [ ] D-ATS-P
