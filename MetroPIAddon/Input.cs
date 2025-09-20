@@ -22,12 +22,23 @@ namespace MetroPIAddon {
                 Keyin = false;
                 panel[167] = CurrentSta;
                 panel[168] = panel[169] = 0;
+                panel[236] = CurrentSta_Tobu;
+                panel[237] = panel[238] = 0;
+                panel[239] = CurrentSta_Seibu;
+                panel[240] = panel[241] = 0;
+                panel[242] = CurrentSta_Sotetsu;
+                panel[243] = panel[244] = 0;
+                panel[245] = CurrentSta_Tokyu;
+                panel[246] = panel[247] = 0;
+                panel[248] = CurrentSta_Metro;
+                panel[249] = panel[250] = 0;
                 panel[62] = D(TrainNumber / 100, 3);
                 panel[63] = D(TrainNumber / 100, 2);
                 panel[64] = D(TrainNumber / 100, 1);
                 panel[65] = D(TrainNumber / 100, 0);
                 panel[68] = TrainNumber % 100;
-                panel[151] = panel[152] = TrainType;
+                panel[151] = TrainType;//10種類用
+                panel[152] = TrainType;//20種類用
                 panel[153] = D(TrainRunningNumber, 1);
                 panel[154] = D(TrainRunningNumber, 0);
                 panel[172] = Destination;
@@ -125,6 +136,58 @@ namespace MetroPIAddon {
                         }
                     }
                     break;
+                case 10://駅名表示設定
+                    if (Route == 11)
+                    {
+                        CurrentSta_Tobu = e.Optional;
+                        NextSta_Tobu = e.Optional + 1;
+                    }
+                    else if (Route == 12)
+                    {
+                        CurrentSta_Tobu = e.Optional;
+                        NextSta_Tobu = e.Optional - 1;
+                    }
+                    else if (Route == 21)
+                    {
+                        CurrentSta_Seibu = e.Optional;
+                        NextSta_Seibu = e.Optional + 1;
+                    }
+                    else if (Route == 22)
+                    {
+                        CurrentSta_Seibu = e.Optional;
+                        NextSta_Seibu = e.Optional - 1;
+                    }
+                    else if (Route == 31)
+                    {
+                        CurrentSta_Sotetsu = e.Optional;
+                        NextSta_Sotetsu = e.Optional + 1;
+                    }
+                    else if (Route == 32)
+                    {
+                        CurrentSta_Sotetsu = e.Optional;
+                        NextSta_Sotetsu = e.Optional - 1;
+                    }
+                    else if (Route == 41)
+                    {
+                        CurrentSta_Tokyu = e.Optional;
+                        NextSta_Tokyu = e.Optional + 1;
+                    }
+                    else if (Route == 42)
+                    {
+                        CurrentSta_Tokyu = e.Optional;
+                        NextSta_Tokyu = e.Optional - 1;
+                    }
+                    else if (Route == 51)
+                    {
+                        CurrentSta_Metro = e.Optional;
+                        NextSta_Metro = e.Optional + 1;
+                    }
+                    else if (Route == 52)
+                    {
+                        CurrentSta_Metro = e.Optional;
+                        NextSta_Metro = e.Optional - 1;
+                    }
+                    break;
                 case 48://駅名表示設定
                     CurrentSta = e.Optional / 1000;
                     NextSta = e.Optional % 1000;
@@ -138,12 +201,47 @@ namespace MetroPIAddon {
                 //case 17://停止位置目標
                 //    StopLocation = state.Location + 11;
                 //    break;
-                case 50://種別/行先/運番表示
+                case 18://種別/行先/運番表示
                     TrainRunningNumber = e.Optional % 100;
                     Destination = (e.Optional / 100) % 100;
                     lastTrainType = TrainType;
                     TrainType = e.Optional / 10000;
                     UpdateRequested = true;
+                    break;
+                case 19://路線定義
+                    switch (e.Optional)
+                    {
+                        case 11://東武
+                            Route = 11;
+                            break;
+                        case 12://東武
+                            Route = 12;
+                            break;
+                        case 21://西武
+                            Route = 21;
+                            break;
+                        case 22://西武
+                            Route = 22;
+                            break;
+                        case 31://相鉄(準備中)
+                            Route = 31;
+                            break;
+                        case 32://相鉄(準備中)
+                            Route = 32;
+                            break;
+                        case 41://メトロ
+                            Route = 41;
+                            break;
+                        case 42://メトロ
+                            Route = 42;
+                            break;
+                        case 51://東急
+                            Route = 51;
+                            break;
+                        case 52://東急
+                            Route = 52;
+                            break;
+                    }
                     break;
                 case 33://車掌電鈴遅延
                     if (e.Optional < 100) {

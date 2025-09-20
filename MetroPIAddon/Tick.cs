@@ -217,6 +217,16 @@ namespace MetroPIAddon {
                 if (state.Time > DoorOpenTime + new TimeSpan(0, 0, 2)) {
                     panel[167] = CurrentSta;
                     panel[168] = panel[169] = 0;
+                    panel[236] = CurrentSta_Tobu;
+                    panel[237] = panel[238] = 0;
+                    panel[239] = CurrentSta_Seibu;
+                    panel[240] = panel[241] = 0;
+                    panel[242] = CurrentSta_Sotetsu;
+                    panel[243] = panel[244] = 0;
+                    panel[245] = CurrentSta_Tokyu;
+                    panel[246] = panel[247] = 0;
+                    panel[248] = CurrentSta_Metro;
+                    panel[249] = panel[250] = 0;
                 }
                 if (state.Time > DoorOpenTime + new TimeSpan(0, 0, 10)) {
                     panel[62] = D(TrainNumber / 100, 3);
@@ -237,9 +247,19 @@ namespace MetroPIAddon {
                 }
             } else {
                 if (state.Time > DoorClosedTime + new TimeSpan(0, 0, 5) && DoorClosedTime != TimeSpan.Zero) {
-                    panel[167] = 0;
+                    panel[167] = panel[236] = panel[239] = panel[242] = panel[245] = panel[248] = 0;
                     panel[168] = CurrentSta;
                     panel[169] = NextSta;
+                    panel[237] = CurrentSta_Tobu;
+                    panel[238] = NextSta_Tobu;
+                    panel[240] = CurrentSta_Seibu;
+                    panel[241] = NextSta_Seibu;
+                    panel[243] = CurrentSta_Sotetsu;
+                    panel[244] = NextSta_Sotetsu;
+                    panel[246] = CurrentSta_Tokyu;
+                    panel[247] = NextSta_Tokyu;
+                    panel[249] = CurrentSta_Metro;
+                    panel[250] = NextSta_Metro;
                     DoorClosedTime = TimeSpan.Zero;
                 }
                 if (UpdateRequested) 
@@ -255,7 +275,7 @@ namespace MetroPIAddon {
 
             panel[176] = Convert.ToInt32(Snowbrake);
             panel[161] = Convert.ToInt32(InstrumentLight);
-            panel[251] = isStopAnnounce ? (state.Time.TotalMilliseconds % 1400 < 700 ? 1 : 0) : 0;
+            panel[251] = isStopAnnounce ? (state.Time.TotalMilliseconds % 1400 < 700 ? 1 : 0) : 0;//要調整
             panel[58] = state.Time.Hours;
             panel[59] = state.Time.Minutes;
             panel[60] = state.Time.Seconds;

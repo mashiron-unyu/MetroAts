@@ -55,7 +55,7 @@ namespace MetroPIAddon {
         private static Sound FDOpenSound, FDCloseSound;
         private static int FDOpenSoundIndex, FDCloseSoundIndex;
 
-        private static int CurrentSta, NextSta, Destination, TrainNumber, TrainType, lastTrainType, TrainRunningNumber;
+        private static int CurrentSta, NextSta, CurrentSta_Tobu, NextSta_Tobu, CurrentSta_Seibu, NextSta_Seibu, CurrentSta_Sotetsu, NextSta_Sotetsu, CurrentSta_Tokyu, NextSta_Tokyu, CurrentSta_Metro, NextSta_Metro, Destination, TrainNumber, TrainType, lastTrainType, TrainRunningNumber, Route;
         private static TimeSpan DoorOpenTime = TimeSpan.Zero, DoorClosedTime = TimeSpan.Zero, Conductorbuzzertime_global = TimeSpan.Zero, Conductorbuzzertime_station = TimeSpan.Zero,
             FDOpenTime = TimeSpan.Zero, FDCloseTime = TimeSpan.Zero;
         private static int FDmode;
