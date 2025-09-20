@@ -83,23 +83,29 @@ namespace MetroPIAddon {
                         }
                     }
 
-                    if (lastLeftDoorState == DoorState.Close && leftDoorState == DoorState.Open) {
-                        if (Config.FDsoundenable) FDOpenSound.Play(1, 1, 100);
-                        FDOpenTime = state.Time + TimeSpan.FromSeconds(3);
-                    } else if (lastLeftDoorState == DoorState.Open && leftDoorState == DoorState.Close) {
-                        if (Config.FDsoundenable) FDCloseSound.Play(1, 1, 100);
-                        FDCloseTime = state.Time + doorCloseTimes;
+                    try {
+                        if (lastLeftDoorState == DoorState.Close && leftDoorState == DoorState.Open) {
+                            if (Config.FDsoundenable) FDOpenSound.Play(1, 1, 100);
+                            FDOpenTime = state.Time + TimeSpan.FromSeconds(3);
+                        } else if (lastLeftDoorState == DoorState.Open && leftDoorState == DoorState.Close) {
+                            if (Config.FDsoundenable) FDCloseSound.Play(1, 1, 100);
+                            FDCloseTime = state.Time + doorCloseTimes;
+                        }
+                        if (lastRightDoorState == DoorState.Close && rightDoorState == DoorState.Open) {
+                            if (Config.FDsoundenable) FDOpenSound.Play(1, 1, 100);
+                            FDOpenTime = state.Time + TimeSpan.FromSeconds(3);
+                        } else if (lastRightDoorState == DoorState.Open && rightDoorState == DoorState.Close) {
+                            if (Config.FDsoundenable) FDCloseSound.Play(1, 1, 100);
+                            FDCloseTime = state.Time + doorCloseTimes;
+                        }
+                    } catch {
+                        Config.FDsoundenable = false;
                     }
-                    if (lastRightDoorState == DoorState.Close && rightDoorState == DoorState.Open) {
-                        if (Config.FDsoundenable) FDOpenSound.Play(1, 1, 100);
-                        FDOpenTime = state.Time + TimeSpan.FromSeconds(3);
-                    } else if (lastRightDoorState == DoorState.Open && rightDoorState == DoorState.Close) {
-                        if (Config.FDsoundenable) FDCloseSound.Play(1, 1, 100);
-                        FDCloseTime = state.Time + doorCloseTimes;
-                    }
+                    
                     if (StandAloneMode) {
-                        if (Keyin) {
+                        if (Keyin && state.Speed < 15) {
                             if (FDCloseTime != TimeSpan.Zero) {
+                                FDOpenTime = TimeSpan.Zero;
                                 if (FDCloseTime.TotalSeconds - state.Time.TotalSeconds < doorCloseTimes.TotalSeconds && FDCloseTime.TotalSeconds - state.Time.TotalSeconds >= (doorCloseTimes.TotalSeconds / 6) * 5) {
                                     panel[193] = 7;
                                 } else if (FDCloseTime.TotalSeconds - state.Time.TotalSeconds < (doorCloseTimes.TotalSeconds / 6) * 5 && FDCloseTime.TotalSeconds - state.Time.TotalSeconds >= (doorCloseTimes.TotalSeconds / 6) * 4) {
@@ -117,6 +123,7 @@ namespace MetroPIAddon {
                                     FDCloseTime = TimeSpan.Zero;
                                 }
                             } else if (FDOpenTime != TimeSpan.Zero) {
+                                FDCloseTime = TimeSpan.Zero;
                                 if (FDOpenTime.TotalSeconds - state.Time.TotalSeconds < 2.5 && FDOpenTime.TotalSeconds - state.Time.TotalSeconds >= 2) {
                                     panel[193] = 2;
                                 } else if (FDOpenTime.TotalSeconds - state.Time.TotalSeconds < 2 && FDOpenTime.TotalSeconds - state.Time.TotalSeconds >= 1.5) {
@@ -137,8 +144,9 @@ namespace MetroPIAddon {
                             }
                         } else panel[193] = 0;
                     } else {
-                        if (corePlugin.KeyPos != MetroAts.KeyPosList.None) {
+                        if (corePlugin.KeyPos != MetroAts.KeyPosList.None && state.Speed < 15) {
                             if (FDCloseTime != TimeSpan.Zero) {
+                                FDOpenTime = TimeSpan.Zero;
                                 if (FDCloseTime.TotalSeconds - state.Time.TotalSeconds < doorCloseTimes.TotalSeconds && FDCloseTime.TotalSeconds - state.Time.TotalSeconds >= (doorCloseTimes.TotalSeconds / 6) * 5) {
                                     panel[193] = 7;
                                 } else if (FDCloseTime.TotalSeconds - state.Time.TotalSeconds < (doorCloseTimes.TotalSeconds / 6) * 5 && FDCloseTime.TotalSeconds - state.Time.TotalSeconds >= (doorCloseTimes.TotalSeconds / 6) * 4) {
@@ -156,6 +164,7 @@ namespace MetroPIAddon {
                                     FDCloseTime = TimeSpan.Zero;
                                 }
                             } else if (FDOpenTime != TimeSpan.Zero) {
+                                FDCloseTime = TimeSpan.Zero;
                                 if (FDOpenTime.TotalSeconds - state.Time.TotalSeconds < 2.5 && FDOpenTime.TotalSeconds - state.Time.TotalSeconds >= 2) {
                                     panel[193] = 2;
                                 } else if (FDOpenTime.TotalSeconds - state.Time.TotalSeconds < 2 && FDOpenTime.TotalSeconds - state.Time.TotalSeconds >= 1.5) {
@@ -180,13 +189,13 @@ namespace MetroPIAddon {
                 } else {
                     panel[181] = panel[182] = 1;
                     if (StandAloneMode && Keyin) {
-                        if (Math.Abs(state.Location - currentStation.Location) < 10) {
+                        if (Math.Abs(state.Location - currentStation.Location) < 10 && state.Speed < 15) {
                             panel[193] = 1;
                         } else {
                             panel[193] = 0;
                         }
                     } else if (corePlugin.KeyPos != MetroAts.KeyPosList.None) {
-                        if (Math.Abs(state.Location - currentStation.Location) < 10) {
+                        if (Math.Abs(state.Location - currentStation.Location) < 10 && state.Speed < 15) {
                             panel[193] = 1;
                         } else {
                             panel[193] = 0;
@@ -215,10 +224,16 @@ namespace MetroPIAddon {
                     panel[64] = D(TrainNumber / 100, 1);
                     panel[65] = D(TrainNumber / 100, 0);
                     panel[68] = TrainNumber % 100;
-                    panel[152] = TrainType;
+                    panel[151] = panel[152] = TrainType;
                     panel[153] = D(TrainRunningNumber, 1);
                     panel[154] = D(TrainRunningNumber, 0);
                     panel[172] = Destination;
+                    if (UpdateRequested) {
+                        UpdateRequested = false;
+                        lastTrainType = TrainType;
+                    }
+                } else {
+                    panel[151] = panel[152] = lastTrainType;
                 }
             } else {
                 if (state.Time > DoorClosedTime + new TimeSpan(0, 0, 5) && DoorClosedTime != TimeSpan.Zero) {
@@ -227,6 +242,10 @@ namespace MetroPIAddon {
                     panel[169] = NextSta;
                     DoorClosedTime = TimeSpan.Zero;
                 }
+                if (UpdateRequested) 
+                    panel[151] = panel[152] = lastTrainType;
+                else
+                    panel[151] = panel[152] = TrainType;
             }
 
             if (Snowbrake && state.BcPressure < Config.SnowBrakePressure) {

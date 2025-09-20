@@ -27,10 +27,11 @@ namespace MetroPIAddon {
                 panel[64] = D(TrainNumber / 100, 1);
                 panel[65] = D(TrainNumber / 100, 0);
                 panel[68] = TrainNumber % 100;
-                panel[152] = TrainType;
+                panel[151] = panel[152] = TrainType;
                 panel[153] = D(TrainRunningNumber, 1);
                 panel[154] = D(TrainRunningNumber, 0);
                 panel[172] = Destination;
+                UpdateRequested = false;
             }
         }
 
@@ -70,11 +71,17 @@ namespace MetroPIAddon {
         private void KeyDown(object sender, AtsKeyEventArgs e) {
             var state = Native.VehicleState;
             var handles = BveHacker.Scenario.Vehicle.Instruments.AtsPlugin.Handles;
-            if (StandAloneMode && handles.BrakeNotch == vehicleSpec.BrakeNotches + 1 && handles.ReverserPosition == ReverserPosition.N) {
-                if (e.KeyName == AtsKeyName.I) {
+            if (handles.BrakeNotch == vehicleSpec.BrakeNotches + 1 && handles.ReverserPosition == ReverserPosition.N) {
+                if (StandAloneMode && e.KeyName == AtsKeyName.I) {
                     Keyin = false;
-                } else if (e.KeyName == AtsKeyName.J) {
+                } else if (StandAloneMode && e.KeyName == AtsKeyName.J) {
                     Keyin = true;
+                } else if (e.KeyName == AtsKeyName.C1 && TrainType > 0) {
+                    --TrainType;
+                    lastTrainType = TrainType;
+                } else if (e.KeyName == AtsKeyName.C2 && TrainType < Config.MaxTrainTypeCount) {
+                    ++TrainType;
+                    lastTrainType = TrainType;
                 }
             }
         }
@@ -134,7 +141,9 @@ namespace MetroPIAddon {
                 case 50://種別/行先/運番表示
                     TrainRunningNumber = e.Optional % 100;
                     Destination = (e.Optional / 100) % 100;
+                    lastTrainType = TrainType;
                     TrainType = e.Optional / 10000;
+                    UpdateRequested = true;
                     break;
                 case 33://車掌電鈴遅延
                     if (e.Optional < 100) {
