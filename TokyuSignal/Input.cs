@@ -71,8 +71,10 @@ namespace TokyuSignal {
             } else if (e.KeyName == AtsKeyName.S) {
                 TokyuATS.ResetWarn();
             }
-            if (StandAloneMode && handles.BrakeNotch == vehicleSpec.BrakeNotches + 1 && handles.ReverserPosition == ReverserPosition.N) {
-                if (e.KeyName == AtsKeyName.I) {
+            if (StandAloneMode && handles.BrakeNotch == vehicleSpec.BrakeNotches + 1 && handles.ReverserPosition == ReverserPosition.N)
+            {
+                if (e.KeyName == AtsKeyName.I)
+                {
                     Sound_Keyout = AtsSoundControlInstruction.Play;
                     Keyin = false;
                     BrakeTriggered = false;
@@ -82,14 +84,23 @@ namespace TokyuSignal {
                     if (sound[0] != (int)AtsSoundControlInstruction.Stop) sound[0] = (int)AtsSoundControlInstruction.Stop;//うさプラ互換
                     panel[32] = 0;//うさプラ互換
                     panel[28] = 0;//うさプラ互換
-                    UpdatePanelAndSound(panel, sound);     
-                } else if (e.KeyName == AtsKeyName.J) {
+                    UpdatePanelAndSound(panel, sound);
+                }
+                else if (e.KeyName == AtsKeyName.J)
+                {
                     Sound_Keyin = AtsSoundControlInstruction.Play;
                     Keyin = true;
-                } else if (e.KeyName == AtsKeyName.G && NowSignalSW > 0) {
+                }
+            }
+            if (StandAloneMode && handles.BrakeNotch == vehicleSpec.BrakeNotches + 1)
+            {
+                if (e.KeyName == AtsKeyName.G && NowSignalSW > 0)
+                {
                     NowSignalSW--;
                     Sound_SignalSW = AtsSoundControlInstruction.Play;
-                } else if (e.KeyName == AtsKeyName.H && NowSignalSW < Config.SignalSWLists.Count - 1) {
+                }
+                else if (e.KeyName == AtsKeyName.H && NowSignalSW < Config.SignalSWLists.Count - 1)
+                {
                     NowSignalSW++;
                     Sound_SignalSW = AtsSoundControlInstruction.Play;
                 }

@@ -87,12 +87,21 @@ namespace MetroPIAddon {
                     Keyin = false;
                 } else if (StandAloneMode && e.KeyName == AtsKeyName.J) {
                     Keyin = true;
-                } else if (e.KeyName == AtsKeyName.C1 && TrainType > 0) {
+                }
+            }
+            if (handles.BrakeNotch != 0)  {
+                if (e.KeyName == AtsKeyName.C1)
+                {//非常かつ断のみ動作だがうさプラはブレーキ段なら動作可能
                     --TrainType;
                     lastTrainType = TrainType;
-                } else if (e.KeyName == AtsKeyName.C2 && TrainType < Config.MaxTrainTypeCount) {
+                    if (TrainType < 0)
+                        TrainType = Config.MaxTrainTypeCount;
+                }
+                else if (e.KeyName == AtsKeyName.C2) {
                     ++TrainType;
                     lastTrainType = TrainType;
+                    if (TrainType > Config.MaxTrainTypeCount)
+                        TrainType = 0;
                 }
             }
         }
@@ -243,7 +252,7 @@ namespace MetroPIAddon {
                             break;
                     }
                     break;
-                case 33://車掌電鈴遅延
+                case 33://車掌電鈴遅延 バグあり
                     if (e.Optional < 100) {
                         if (e.Optional != 99) Conductorbuzzertime_station = new TimeSpan(0, 0, e.Optional);
                         else Conductorbuzzertime_station = TimeSpan.MinValue;

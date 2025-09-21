@@ -82,10 +82,17 @@ namespace MetroSignal {
                 } else if (e.KeyName == AtsKeyName.J) {
                     Sound_Keyin = AtsSoundControlInstruction.Play;
                     Keyin = true;
-                } else if (e.KeyName == AtsKeyName.G && NowSignalSW > 0) {
+                }
+            }
+            if (StandAloneMode && handles.BrakeNotch == vehicleSpec.BrakeNotches + 1)
+            {
+                if (e.KeyName == AtsKeyName.G && NowSignalSW > 0)
+                {
                     NowSignalSW--;
                     Sound_SignalSW = AtsSoundControlInstruction.Play;
-                } else if (e.KeyName == AtsKeyName.H && NowSignalSW < Config.SignalSWLists.Count - 1) {
+                }
+                else if (e.KeyName == AtsKeyName.H && NowSignalSW < Config.SignalSWLists.Count - 1)
+                {
                     NowSignalSW++;
                     Sound_SignalSW = AtsSoundControlInstruction.Play;
                 }

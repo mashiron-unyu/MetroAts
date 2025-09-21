@@ -116,6 +116,36 @@ namespace MetroAts {
                     }
                 }
             }
+            if (handles.BrakeNotch == vehicleSpec.BrakeNotches + 1)//レバーサが断位置以外でも動作できるように変更
+            {
+                if (e.KeyName == AtsKeyName.G)
+                {
+                    if (Config.SignalSW_loop)
+                    {
+                        NowSignalSW = (NowSignalSW - 1) % Config.SignalSWLists.Count;
+                        if (NowSignalSW < 0) NowSignalSW += Config.SignalSWLists.Count;
+                        Sound_SignalSW = AtsSoundControlInstruction.Play;
+                    }
+                    else if (NowSignalSW > 0)
+                    {
+                        NowSignalSW--;
+                        Sound_SignalSW = AtsSoundControlInstruction.Play;
+                    }
+                }
+                else if (e.KeyName == AtsKeyName.H)
+                {
+                    if (Config.SignalSW_loop)
+                    {
+                        NowSignalSW = (NowSignalSW + 1) % Config.SignalSWLists.Count;
+                        Sound_SignalSW = AtsSoundControlInstruction.Play;
+                    }
+                    else if (NowSignalSW < Config.SignalSWLists.Count - 1)
+                    {
+                        NowSignalSW++;
+                        Sound_SignalSW = AtsSoundControlInstruction.Play;
+                    }
+                }
+            }
         }
 
         private void SetVehicleSpec(object sender, EventArgs e) {
